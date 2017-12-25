@@ -3,6 +3,8 @@ tmp
 tmp.txt
 tmp.tmp
 */.ipynb_checkpoints
+.ipynb_checkpoints/
+*.swp
 
 
 data 
