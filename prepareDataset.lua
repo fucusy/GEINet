@@ -208,7 +208,6 @@ function prepareDataset.prepareDatasetOULP(datapath, modelname, geipath)
     local test_filename = string.format('%s/oulp_test_data.txt', datapath)
     local val_filename = string.format('%s/oulp_val_data.txt', datapath)
     local res = {}
-    local is_grey = true
     res['train'] = DatasetGenerator.new(train_filename, modelname, geipath)
     res['val'] = DatasetGenerator.new(val_filename, modelname, geipath)
     res['test'] = DatasetGenerator.new(test_filename, modelname, geipath)

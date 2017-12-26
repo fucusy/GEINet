@@ -84,18 +84,12 @@ end
 
 function cal_loss(model, crit, inputs, targets)
     local loss = 0
-    for i, input in ipairs(inputs) do
-        local l = 0
-        if opt.modelname == 'singlematch' then
-            l = _cal_loss_single_match(model, crit, inputs[i], targets[i])
-        else
-            local output = model:forward(input)
-            output = convertToDouble(output)
-            l = crit:forward(output, targets[i])
-        end
+    local outputs = model:forward(inputs)
+    for i=1, #targets do
+        l = crit:forward(outputs[i], targets[i])
         loss = loss + l
     end
-    loss = loss / #inputs
+    loss = loss / #targets
     return loss
 end
 
