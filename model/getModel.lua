@@ -37,7 +37,7 @@ function GEINet(gpu, dropout)
     fc:add(nn.Dropout(dropout))
     fc:add(nn.Linear(previous_count, 1024))
     fc:add(nn.ReLU())
-    fc:add(nn.Linear(1024, 956))
+    fc:add(nn.Linear(1024, 856))
  
     
     local model = nn.Sequential()

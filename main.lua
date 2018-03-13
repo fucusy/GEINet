@@ -1,3 +1,5 @@
+require 'test'
+
 cmd = torch.CmdLine()
 cmd:option('-iteration', 30,'how many iteration')
 cmd:option('-gradclip',5,'magnitude of clip on the RNN gradient')
@@ -79,18 +81,18 @@ while i < opt.iteration do
     total_loss = total_loss / opt.batchsize
     gradParametersAdd:div(opt.batchsize)
     parameters:add(gradParametersAdd*opt.learningrate*-1)   
---     if i % opt.calprecision == 0 then
---         local same, diff, prec = precisionCASIADatasetBNormal(dataset['val'], model)
---         if prec > max_val_precision then
---             info('change max precision from %0.2f to %0.2f'
---                                         , max_val_precision, prec)
---             max_val_precision = prec
---             local name = string.format('%s_valpre_%0.04f_i%04d', opt.modelname, max_val_precision, i)
---             save_model(model, name)
---         else
---             info('do not change max_precision from %0.2f to %0.2f', max_val_precision, prec)
---         end
---     end
+    if i % opt.calprecision == 0 then
+        local same, diff, prec = evaluate_oulp_simi(dataset['val'], model)
+        if prec > max_val_precision then
+            info('change max precision from %0.2f to %0.2f'
+                                        , max_val_precision, prec)
+            max_val_precision = prec
+            local name = string.format('%s_valpre_%0.04f_i%04d', opt.modelname, max_val_precision, i)
+            save_model(model, name)
+        else
+            info('do not change max_precision from %0.2f to %0.2f', max_val_precision, prec)
+        end
+    end
     
     
     local time = timer:time().real

@@ -100,14 +100,16 @@ function save_model(model, name)
     torch.save(filename, model)
 end
 
-function feature_extract_model(model, modelname)
-    return model:get(1):get(1)
+function feature_extract_model(model)
+    local res = nn.Sequential()
+    res:add(model:get(1))
+    res:add(model:get(2))
+    res:add(model:get(3))
+    return res
 end
 
-function merge_model(model, modelname)
-    local ret = nn.Sequential()
-    ret:add(model:get(2))
-    ret:add(model:get(3))
+function merge_model()
+    local ret = nn.MSECriterion()
     return ret
 end
   
